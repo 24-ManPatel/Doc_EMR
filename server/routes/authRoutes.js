@@ -8,7 +8,7 @@ const { test , registerUser , loginUser , getProfile, getAllDoctors} = require('
 router.use(
     cors({
         credentials:true,
-        origin:'http://65.0.8.212:5173'
+        origin:['http://65.0.8.212:5173','http://65.0.8.212:3030']
     })
 ) // allow cross-origin
 

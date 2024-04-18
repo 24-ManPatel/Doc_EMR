@@ -9,7 +9,7 @@ import { Toaster } from 'react-hot-toast'
 import { UserContextProvider } from '../context/userContext';
 import Dashboard from './pages/Dashboard';
 
-axios.defaults.baseURL = 'http://localhost:8000';
+axios.defaults.baseURL = 'http://65.0.8.212:4269'; // server IP
 axios.defaults.withCredentials=true  
 function App() {
   return (

@@ -86,9 +86,21 @@ const getProfile = (req , res) => {
     }
 }
 
+//palashi boi wanting doctor names 
+const getAllDoctors = async (req, res) => {
+    try {
+        const doctors = await User.find({}, 'name');
+        res.json(doctors);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
 module.exports = {
     test,
     registerUser,
     loginUser , 
-    getProfile
+    getProfile,
+    getAllDoctors
 }

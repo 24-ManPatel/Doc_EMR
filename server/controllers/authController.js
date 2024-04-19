@@ -8,43 +8,39 @@ const test = (req,res) => {
 
 
 // register end point
-const registerUser = async (req,res) =>{
+const registerUser = async (req, res) => {
     try {
-        const {name,email,password} = req.body;
-        // check if the name was entered
-        if(!name){
-            return res.json({
-                error:'name is required'
-            });
-        }
-        // check for password is good
-        if(!password || password.length < 8 ){
-            return res.json({
-                error:'passwrod is required and should be atleast 6 character long'
-            });
+        const {
+            name, email, password, contactNumber, 
+            clinicAddress, experience, doctorType, city, state, country, doctorId
+        } = req.body;
+
+        // Validation checks
+        if (!name || !email || !password) {
+            return res.status(400).json({ error: 'Name, email, and password are required.' });
         }
 
-        // check email
-        const exist = await User.findOne({email})
+        // Additional validations can be added here
 
-        if(exist){
-            return res.json({
-                error:'Email already exists!'
-            });
+        const exist = await User.findOne({ email });
+        if (exist) {
+            return res.status(400).json({ error: 'Email already exists!' });
         }
 
-        const hashedPassword = await hashPassword(password)
-        // create user in the database
+        const hashedPassword = await hashPassword(password);
+
+        // Create user with all provided data
         const user = await User.create({
-            name,email,
-            password: hashedPassword,
+            name, email, password: hashedPassword, contactNumber,
+            clinicAddress, experience, doctorType,city, state, country, doctorId
         });
 
-        return res.json(user)
+        res.json({ success: true, message: "Registration successful", user });
     } catch (error) {
-        console.log(error)
+        console.error('Failed to register user:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
-}
+};
 
 
 //login Endpoint
@@ -102,5 +98,5 @@ module.exports = {
     registerUser,
     loginUser , 
     getProfile,
-    getAllDoctors
+    getAllDoctors,
 }

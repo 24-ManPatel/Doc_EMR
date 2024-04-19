@@ -1,4 +1,6 @@
 const User = require('../models/user');
+
+
 const { hashPassword , coPass} = require('../helpers/auth') 
 const jwt = require('jsonwebtoken');
 
@@ -82,7 +84,7 @@ const getProfile = (req , res) => {
     }
 }
 
-//palashi boi wanting doctor names 
+//palashi boi wanting doctor  
 const getAllDoctors = async (req, res) => {
     try {
         const doctors = await User.find({}, 'name');
@@ -93,10 +95,37 @@ const getAllDoctors = async (req, res) => {
     }
 }
 
+
+// for name , city or doctortype search doctors
+const searchDoctors = async (req, res) => {
+    try {
+        const { name, doctorType, city, doctorId } = req.query;
+
+        // Construct the filter object based on the provided query parameters
+        // filer based in provided params
+        const filter = {};
+        if (name) filter.name = new RegExp(name, 'i');
+        if (doctorType) filter.doctorType = doctorType;
+        if (city) filter.city = city;
+        if (doctorId) filter.doctorId = doctorId;
+        // Query the database with filter
+        const doctors = await User.find(filter)
+            .select('name email contactNumber clinicAddress experience doctorType city state country doctorId');
+
+        res.json(doctors);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+
+
 module.exports = {
     test,
     registerUser,
     loginUser , 
     getProfile,
     getAllDoctors,
+    searchDoctors
 }

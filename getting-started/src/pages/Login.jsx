@@ -26,6 +26,7 @@ export default function Login() {
             }
         } catch (error) {
             // Handle error appropriately
+            console.log(error);
         }
     };
 

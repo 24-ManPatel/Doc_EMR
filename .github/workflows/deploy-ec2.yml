@@ -1,0 +1,46 @@
+name: deploy-to-eC2
+
+run-name: ${{ github.actor }} is Deploying To EC2
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  deploys-to-ec2:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the Files
+        uses: actions/checkout@v4
+
+      - name: Loading Files to the EC2 Instance
+        uses: easingthemes/ssh-deploy@main
+        env: 
+          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.HOST_IP }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
+          TARGET: ${{ secrets.TARGET_DIR }}
+
+      - name: Executing Code in EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_IP }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          script: | 
+            cd home/EMR
+            cd getting-started
+            npm install -g vite
+            sudo kill -9 $(sudo lsof -t -i:5173)
+            npm run dev > client_output.log 2>&1 &
+            cd ../server
+            npm uninstall nodemon
+            npm install nodemon
+            npm uninstall bcrypt
+            npm install bcrypt
+            npm install i jsonwebtoken cookie-parser
+            sudo kill -9 $(sudo lsof -t -i:4269)
+            npm start > server_output.log 2>&1 &
+      

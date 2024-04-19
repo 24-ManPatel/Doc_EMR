@@ -20,4 +20,9 @@ app.use(express.urlencoded({extended:false}))
 app.use('/',require('./routes/authRoutes'))
 
 const port = 4269;
+<<<<<<< HEAD
 app.listen(port, '0.0.0.0',() => console.log(`Server is running on port ${port}`))
+=======
+app.listen(port, '0.0.0.0',() => console.log(`Server is running on port ${port}`))
+
+>>>>>>> 34511c31c2cf981e830dbdd43ec098514bd6e0fb

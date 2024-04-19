@@ -7,7 +7,7 @@ export function UserContextProvider({children}){
     const [user, setUser] = useState(null);
     useEffect(() => {
         if(!user){
-            axios.get('/register').then(({data}) => {
+            axios.get('/').then(({data}) => {
                 setUser(data)
             })
         }

@@ -7,9 +7,10 @@ export default function Navbar() {
       <div className="container mx-auto flex justify-between items-center">
         <div className="text-white text-lg font-semibold">EMR Management</div>
         <ul className="flex space-x-4">
-          <li><Link to='/register' className="text-white hover:text-gray-300 font-semibold">Home</Link> </li>
-          <li><Link to='/' className="text-white hover:text-gray-300 font-semibold">Register</Link> </li>
+          <li><Link to='/home' className="text-white hover:text-gray-300 font-semibold">Home</Link> </li>
+          <li><Link to='/register' className="text-white hover:text-gray-300 font-semibold">Register</Link> </li>
           <li><Link to='/login' className="text-white hover:text-gray-300 font-semibold">Login</Link> </li>
+          {/* <li><Link to='/newVisit' className="text-white hover:text-gray-300 font-semibold">[Remove Later]</Link> </li> */}
           <li></li>
         </ul>
       </div>

@@ -8,6 +8,7 @@ import axios from 'axios';
 import { Toaster } from 'react-hot-toast'
 import { UserContextProvider } from '../context/userContext';
 import Dashboard from './pages/Dashboard';
+import NewVisit from './pages/NewVisit';
 // import DoctorProfileSetup from './pages/Profile';
 
 axios.defaults.baseURL = 'http://65.0.8.212:4269'; // server IP
@@ -23,9 +24,9 @@ function App() {
       <Toaster position='bottom-center' toastOptions={{duration : 8000}}></Toaster>
       <Routes>
         <Route path='/home' element={<Home/>}></Route>
-        <Route path='/' element={<Register/>}></Route>
+        <Route path='/register' element={<Register/>}></Route>
         <Route path='/login' element={<Login/>}></Route>
-        <Route path='/dashboard' element={<Dashboard/>}></Route>
+        <Route path='/newVisit' element={<NewVisit/>}></Route>
         {/* <Route path='/profile' element={<DoctorProfileSetup/>}></Route> */}
       </Routes>
     </UserContextProvider>

@@ -14,12 +14,22 @@ export default function Home() {
 
     try {
       const response = await axios.get(`http://65.0.8.212:4269/api/patients/${patientId}`);
+      // const response = await axios.get(`http://localhost:8000/patients/${patientId}`);
+
       setIsLoading(false);
       toast.success('Patient record found!');
+
       console.log('Patient details:', response.data);
-      navigate(`/patient-details/${patientId}`, { state: { patientData: response.data } });
+
+      try {
+        navigate(`/patient-details/${patientId}`, { state: { patientData: response.data } });
+      } catch (error) {
+        console.error('navigate ka locha mara :', error);
+        toast.error('page problem hai bhai.');
+      }
+      
     } catch (error) {
-      console.error('Failed to fetch patient data:', error);
+      console.error('teri api ka problem :', error);
       toast.error('Failed to find patient record.');
       setIsLoading(false);
     }

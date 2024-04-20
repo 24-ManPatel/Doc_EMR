@@ -13,7 +13,7 @@ export default function Home() {
     setIsLoading(true); // Start loading
 
     try {
-      const response = await axios.get(`http://65.0.8.212:4269/api/patients/${patientId}`);
+      const response = await axios.get(`http://65.0.8.212:4269/patients/${patientId}`);
       // const response = await axios.get(`http://localhost:8000/patients/${patientId}`);
 
       setIsLoading(false);

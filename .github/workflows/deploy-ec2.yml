@@ -40,6 +40,7 @@ jobs:
             npm install nodemon
             npm uninstall bcrypt
             npm install bcrypt
+            npm install axios
             npm install i jsonwebtoken cookie-parser
             sudo kill -9 $(sudo lsof -t -i:4269)
             npm start > server_output.log 2>&1 &

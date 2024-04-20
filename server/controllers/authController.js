@@ -21,7 +21,10 @@ const registerUser = async (req, res) => {
         if (!name || !email || !password) {
             return res.status(400).json({ error: 'Name, email, and password are required.' });
         }
-
+        
+        if (contactNumber.length !== 10) {
+            return res.status(400).json({ error: 'Contact number should be of length 10.' });
+        }
         // Additional validations can be added here
 
         const exist = await User.findOne({ email });

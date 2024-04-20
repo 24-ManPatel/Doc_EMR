@@ -13,17 +13,15 @@ export default function Home() {
     setIsLoading(true); // Start loading
 
     try {
-      const response = await axios.get(`https://api.example.com/patients/${patientId}`);
-      // Assume the API responds with the patient data
-      setIsLoading(false); // Stop loading
+      const response = await axios.get(`http://65.0.8.212:4269/api/patients/${patientId}`);
+      setIsLoading(false);
       toast.success('Patient record found!');
-
-      // Here, you might navigate to a detail view, passing the patient data
+      console.log('Patient details:', response.data);
       navigate(`/patient-details/${patientId}`, { state: { patientData: response.data } });
     } catch (error) {
       console.error('Failed to fetch patient data:', error);
       toast.error('Failed to find patient record.');
-      setIsLoading(false); // Stop loading
+      setIsLoading(false);
     }
   };
 

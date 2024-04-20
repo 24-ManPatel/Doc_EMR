@@ -84,6 +84,7 @@ export default function Register() {
                         <input
                             type="text"
                             name="name"
+                            required
                             value={data.name}
                             onChange={handleChange}
                             placeholder="Name"

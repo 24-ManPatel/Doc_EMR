@@ -1,8 +1,9 @@
 const User = require('../models/user');
-
+const Appointment = require('../models/Appointment');
 
 const { hashPassword , coPass} = require('../helpers/auth') 
 const jwt = require('jsonwebtoken');
+const { HttpStatusCode } = require('axios');
 
 const test = (req,res) => {
     res.json('test is working')
@@ -124,11 +125,47 @@ const searchDoctors = async (req, res) => {
 
 
 
+// Function to book appointment
+const bookAppointment = async (req, res) => {
+    try {
+        const { doctorId, patientId, timeSlot } = req.body;
+
+        // Create a new appointment
+        const appointment = new Appointment({
+            doctorId,
+            patientId,
+            timeSlot
+        });
+
+        // Save the appointment to MongoDB
+        await appointment.save();
+
+        res.status(200).json({ message: 'Appointment booked successfully', appointstatus: 'confirmed' });
+    } catch (error) {
+        console.error('Error booking appointment:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+
+const getAppointments = async (req, res) => {
+    try {
+        const appointments = await Appointment.find();
+        res.json(appointments);
+    } catch (error) {
+        console.error('Error fetching appointments:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+
 module.exports = {
     test,
     registerUser,
     loginUser , 
     getProfile,
     getAllDoctors,
-    searchDoctors
+    searchDoctors,
+    bookAppointment,
+    getAppointments,
 }

@@ -8,9 +8,9 @@ const { test , registerUser , loginUser , getProfile, getAllDoctors, searchDocto
 router.use(
     cors({
         
-        origin:['http://65.0.8.212:5173','http://65.0.8.212:3030'], //for aws
+        origin:['http://65.0.8.212:5173','http://65.0.8.212:3030'],  //for aws
         //origin: ['http://localhost:5173','http://65.0.8.212:3030'], //for testing on localhost
-        credentials: true
+        credentials: true,
     })
 ) // allow cross-origin
 

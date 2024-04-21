@@ -16,7 +16,7 @@ mongoose.connect(process.env.MONGO_URL)
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://65.0.8.212:3030'],
+  origin: ['http://65.0.8.212:5173', 'http://65.0.8.212:3030'],
   credentials: true // Enable credentials
 }));
 

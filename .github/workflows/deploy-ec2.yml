@@ -39,6 +39,7 @@ jobs:
             npm install axios
             npm install i jsonwebtoken cookie-parser
             sudo kill -9 $(sudo lsof -t -i:4269)
+            pm2 delete 0
             pm2 start --name "server" npm -- start
             cd ../getting-started
             npm install -g vite

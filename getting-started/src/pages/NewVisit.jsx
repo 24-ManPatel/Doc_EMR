@@ -67,7 +67,7 @@ export default function NewVisit() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Process submission here
-    // navigate('/next-page');
+    // navigate('/home');
   };
 
   const tests = [
@@ -80,7 +80,7 @@ export default function NewVisit() {
     'Sugar Fasting',
     // ...more tests
   ];
-
+  
   const handleSelectTest = (test) => {
     setSelectedTest(test);
     setShowDropdown(false);
@@ -122,8 +122,21 @@ export default function NewVisit() {
     ]);
   };
 
+  const handlePastRecordsClick = () => {
+    navigate('/pastRecords'); // This will navigate to the '/pastRecords' route
+  };
+
   return (
     <div className="container mx-auto px-4 ref={dropdownRef}">
+      <div className="flex justify-between mb-4">
+        <button
+          onClick={handlePastRecordsClick}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded"
+        >
+          Past Patient Records
+        </button>
+        {/* ... other header elements ... */}
+      </div>
       <div className="mb-6">
         <br />
         <h2 className="text-xl font-semibold mb-4">Vitals</h2>

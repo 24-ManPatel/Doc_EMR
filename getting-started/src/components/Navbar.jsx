@@ -10,7 +10,7 @@ export default function Navbar() {
           <li><Link to='/home' className="text-white hover:text-gray-300 font-semibold">Home</Link> </li>
           <li><Link to='/register' className="text-white hover:text-gray-300 font-semibold">Register</Link> </li>
           <li><Link to='/login' className="text-white hover:text-gray-300 font-semibold">Login</Link> </li>
-          {/* <li><Link to='/newVisit' className="text-white hover:text-gray-300 font-semibold">[Remove Later]</Link> </li> */}
+          <li><Link to='/bookings' className="text-white hover:text-gray-300 font-semibold">Bookings</Link> </li>
           <li></li>
         </ul>
       </div>

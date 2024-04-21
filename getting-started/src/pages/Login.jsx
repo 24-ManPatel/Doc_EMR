@@ -15,18 +15,25 @@ export default function Login() {
         const { email, password } = data;
 
         try {
-            const { data } = await axios.post('/login', {
+            const response = await axios.post('http://65.0.8.212:4269/login', {
                 email, password
+            }, {
+                withCredentials: true
             });
-            if (data.error) {
-                toast.error(data.error);
+
+            if (response.data.error) {
+                toast.error(response.data.error);
             } else {
-                setData({});
+                setData({   // Resetting the state after successful login
+                    email: '',
+                    password: '',
+                });
+                toast.success('Login successful. Welcome!');
                 navigate('/home');
             }
         } catch (error) {
             // Handle error appropriately
-            console.log(error);
+            console.error("Axios error:", error);
         }
     };
 

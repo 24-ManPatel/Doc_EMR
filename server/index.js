@@ -15,9 +15,30 @@ mongoose.connect(process.env.MONGO_URL)
 //middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:5173', 'http://65.0.8.212:3030'],
+  credentials: true // Enable credentials
+}));
 
 app.use(express.urlencoded({extended:false}))
+
+//for loggin on server problem seeing
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+  next();
+});
+
+// Logging middleware for responses
+app.use((req, res, next) => {
+  const start = Date.now();
+  const originalSend = res.send;
+  res.send = function (body) {
+    const responseTime = Date.now() - start;
+    console.log(`[${new Date().toISOString()}] ${res.statusCode} ${req.method} ${req.url} Response Time: ${responseTime}ms Response:`, body);
+    originalSend.call(this, body);
+  };
+  next();
+});
 
 app.use('/',require('./routes/authRoutes'))
 
@@ -29,7 +50,7 @@ app.get('/patients/:patientId', async (req, res) => {
       res.json(response.data);
     } catch (error) {
       console.error('palash ka problem :', error);
-      res.status(500).json({ error: 'hehehe.' });
+      res.status(500).json({ error: 'patient data not coming.' });
     }
   });
 

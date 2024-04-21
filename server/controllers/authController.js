@@ -127,9 +127,10 @@ const searchDoctors = async (req, res) => {
 
 // Function to book appointment
 const bookAppointment = async (req, res) => {
+
     try {
         const { doctorId, patientId, timeSlot } = req.body;
-
+        
         // Create a new appointment
         const appointment = new Appointment({
             doctorId,
@@ -139,7 +140,6 @@ const bookAppointment = async (req, res) => {
 
         // Save the appointment to MongoDB
         await appointment.save();
-
         res.status(200).json({ message: 'Appointment booked successfully', appointstatus: 'confirmed' });
     } catch (error) {
         console.error('Error booking appointment:', error);

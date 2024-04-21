@@ -11,7 +11,7 @@ const Bookings = () => {
 
   const fetchAppointments = async () => {
     try {
-      const response = await axios.get('http://65.0.8.212:4269file /get_appointments');
+      const response = await axios.get('http://65.0.8.212:4269/get_appointments');
       setAppointments(response.data);
       setLoading(false);
     } catch (error) {
@@ -37,7 +37,7 @@ const Bookings = () => {
                     <div>
                       <p className="font-semibold">Doctor ID: {appointment.doctorId}</p>
                       <p className="font-semibold">Patient ID: {appointment.patientId}</p>
-                      <p className="font-semibold">Time Slot: {appointment.timeSlot}</p>
+                      <p className="font-semibold">Time Slot: {new Date(appointment.timeSlot).toLocaleString()}</p>
                     </div>
                     <div className="flex items-center">
                       <span className="text-green-600">Confirmed</span>

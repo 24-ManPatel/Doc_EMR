@@ -44,15 +44,21 @@ app.use('/',require('./routes/authRoutes'))
 
 
 app.get('/patients/:patientId', async (req, res) => {
-    try {
+  try {
       const { patientId } = req.params;
       const response = await axios.get(`http://65.0.8.212:3030/EMR/GetPatientByID/${patientId}`);
-      res.json(response.data);
-    } catch (error) {
+      
+      if (response.data.status === "5" && response.data.message === "No Patient Exists") {
+          res.status(404).json({ error: 'No patient found.' });
+      } else {
+          res.json(response.data);
+      }
+  } catch (error) {
       console.error('palash ka problem :', error);
       res.status(500).json({ error: 'patient data not coming.' });
-    }
-  });
+  }
+});
+
 
 const port = 4269;
 app.listen(port, '0.0.0.0',() => console.log(`Server is running on port ${port}`)) // for aws

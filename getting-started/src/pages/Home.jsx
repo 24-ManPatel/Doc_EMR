@@ -22,12 +22,12 @@ export default function Home() {
       console.log('Patient details:', response.data);
 
       try {
-        navigate(`/patient-details/${patientId}`, { state: { patientData: response.data } });
+        navigate('/newVisit', { state: { patientData: response.data } });
       } catch (error) {
         console.error('navigate ka locha mara :', error);
         toast.error('page problem hai bhai.');
       }
-      navigate('/newVisit');
+      //navigate('/newVisit');
     } catch (error) {
       console.error('teri api ka problem :', error);
       toast.error('Failed to find patient record.');

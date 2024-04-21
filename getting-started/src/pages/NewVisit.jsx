@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 const initialComplaints = [
   { id: 1, complaint: '', frequency: '', severity: '', duration: '', date: '' }
@@ -25,6 +26,18 @@ const TestDropdown = ({ options, onSelect }) => {
 export default function NewVisit() {
   const [complaints, setComplaints] = useState(initialComplaints);
   const navigate = useNavigate();
+  const location = useLocation(); // Hook to access location state
+  const patientData = location.state ? location.state.patientData : null; // Extract patient data
+
+  useEffect(() => {
+    if (!patientData) {
+      // Redirect to home if patient data is not available
+      navigate('/home');
+      toast.error('Patient data not found.');
+    }
+  }, [patientData, navigate]);
+
+
   const diagnosisOptions = ['Viral Fever', 'AIDS', 'Cancer', 'Hypertension'];
   const durationOptions = ['1 day', '1 week', '1 month', '6 months', '1 year'];
 
@@ -137,6 +150,40 @@ export default function NewVisit() {
         </button>
         {/* ... other header elements ... */}
       </div>
+      <div className="mb-6">
+    {/* Patient Data Section */}
+    <h2 className="text-xl font-semibold mb-4">Patient Data</h2>
+    <div className="flex flex-wrap -mx-2 mb-6">
+      <div className="flex w-1/2 px-2">
+        <div className="flex items-center space-x-2 mb-4 w-full">
+          <label htmlFor="name" className="w-1/3">Name:</label>
+          <span>{patientData.name}</span>
+        </div>
+        <div className="flex items-center space-x-2 mb-4 w-full">
+          <label htmlFor="age" className="w-1/3">Age:</label>
+          <span>{patientData.age}</span>
+        </div>
+        <div className="flex items-center space-x-2 mb-4 w-full">
+          <label htmlFor="gender" className="w-1/3">Gender:</label>
+          <span>{patientData.gender}</span>
+        </div>
+      </div>
+      <div className="flex w-1/2 px-2">
+        <div className="flex items-center space-x-2 mb-4 w-full">
+          <label htmlFor="dob" className="w-1/3">Date of Birth:</label>
+          <span>{patientData.dob}</span>
+        </div>
+        <div className="flex items-center space-x-2 mb-4 w-full">
+          <label htmlFor="address" className="w-1/3">Address:</label>
+          <span>{patientData.address}</span>
+        </div>
+        <div className="flex items-center space-x-2 mb-4 w-full">
+          <label htmlFor="phone" className="w-1/3">Phone:</label>
+          <span>{patientData.phone}</span>
+        </div>
+      </div>
+    </div>
+  </div>
       <div className="mb-6">
         <br />
         <h2 className="text-xl font-semibold mb-4">Vitals</h2>

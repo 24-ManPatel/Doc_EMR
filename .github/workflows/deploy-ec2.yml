@@ -31,11 +31,7 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           script: | 
             cd home/EMR
-            cd getting-started
-            npm install -g vite
-            sudo kill -9 $(sudo lsof -t -i:5173)
-            npm run dev > client_output.log 2>&1 &
-            cd ../server
+            cd server
             npm uninstall nodemon
             npm install nodemon
             npm uninstall bcrypt
@@ -43,5 +39,10 @@ jobs:
             npm install axios
             npm install i jsonwebtoken cookie-parser
             sudo kill -9 $(sudo lsof -t -i:4269)
-            npm start > server_output.log 2>&1 &
+            pm2 start --name "server" npm -- start
+            cd ../getting-started
+            npm install -g vite
+            npm install
+            sudo kill -9 $(sudo lsof -t -i:5173)
+            npm run dev > client_output.log 2>&1 &
       

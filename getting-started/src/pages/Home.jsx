@@ -27,7 +27,7 @@ export default function Home() {
         console.error('navigate ka locha mara :', error);
         toast.error('page problem hai bhai.');
       }
-      
+      navigate('/newVisit');
     } catch (error) {
       console.error('teri api ka problem :', error);
       toast.error('Failed to find patient record.');

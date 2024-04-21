@@ -14,7 +14,7 @@ export default function Home() {
 
     try {
       const response = await axios.get(`http://65.0.8.212:4269/patients/${patientId}`);
-      // const response = await axios.get(`http://localhost:8000/patients/${patientId}`);
+      //const response = await axios.get(`http://localhost:8000/patients/${patientId}`);
 
       setIsLoading(false);
       toast.success('Patient record found!');

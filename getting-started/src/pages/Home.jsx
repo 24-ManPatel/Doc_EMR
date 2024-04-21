@@ -20,9 +20,10 @@ export default function Home() {
       toast.success('Patient record found!');
 
       console.log('Patient details:', response.data);
-
+      const patientData = response.data;
+      console.log(patientData)
       try {
-        navigate('/newVisit', { state: { patientData: response.data } });
+        navigate('/newVisit', { state: { patientData } });
       } catch (error) {
         console.error('navigate ka locha mara :', error);
         toast.error('page problem hai bhai.');

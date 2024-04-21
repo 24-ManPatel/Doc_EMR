@@ -16,6 +16,7 @@ mongoose.connect(process.env.MONGO_URL)
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
+  //origin: ['http://localhost:5173', 'http://65.0.8.212:3030'],
   origin: ['http://65.0.8.212:5173', 'http://65.0.8.212:3030'],
   credentials: true // Enable credentials
 }));
@@ -47,8 +48,8 @@ app.get('/patients/:patientId', async (req, res) => {
   try {
       const { patientId } = req.params;
       const response = await axios.get(`http://65.0.8.212:3030/EMR/GetPatientByID/${patientId}`);
-      
-      if (response.data.status === "5" && response.data.message === "No Patient Exists") {
+      console.log(response.data)
+      if (response.data.status === "5") {
           res.status(404).json({ error: 'No patient found.' });
       } else {
           res.json(response.data);

@@ -151,39 +151,24 @@ export default function NewVisit() {
         {/* ... other header elements ... */}
       </div>
       <div className="mb-6">
-    {/* Patient Data Section */}
-    <h2 className="text-xl font-semibold mb-4">Patient Data</h2>
-    <div className="flex flex-wrap -mx-2 mb-6">
-      <div className="flex w-1/2 px-2">
-        <div className="flex items-center space-x-2 mb-4 w-full">
-          <label htmlFor="name" className="w-1/3">Name:</label>
-          <span>{patientData.name}</span>
-        </div>
-        <div className="flex items-center space-x-2 mb-4 w-full">
-          <label htmlFor="age" className="w-1/3">Age:</label>
-          <span>{patientData.age}</span>
-        </div>
-        <div className="flex items-center space-x-2 mb-4 w-full">
-          <label htmlFor="gender" className="w-1/3">Gender:</label>
-          <span>{patientData.gender}</span>
-        </div>
-      </div>
-      <div className="flex w-1/2 px-2">
-        <div className="flex items-center space-x-2 mb-4 w-full">
-          <label htmlFor="dob" className="w-1/3">Date of Birth:</label>
-          <span>{patientData.dob}</span>
-        </div>
-        <div className="flex items-center space-x-2 mb-4 w-full">
-          <label htmlFor="address" className="w-1/3">Address:</label>
-          <span>{patientData.address}</span>
-        </div>
-        <div className="flex items-center space-x-2 mb-4 w-full">
-          <label htmlFor="phone" className="w-1/3">Phone:</label>
-          <span>{patientData.phone}</span>
-        </div>
-      </div>
+  {/* Patient Data Section */}
+  <h2 className="text-2xl font-bold mb-4">Patient Data</h2>
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="flex flex-col">
+      <label htmlFor="name" className="text-gray-600 mb-2">Name:</label>
+      <span className="text-lg font-semibold">{patientData.PatientName}</span>
+    </div>
+    <div className="flex flex-col">
+      <label htmlFor="age" className="text-gray-600 mb-2">Age:</label>
+      <span className="text-lg font-semibold">{patientData.Age}</span>
+    </div>
+    <div className="flex flex-col">
+      <label htmlFor="gender" className="text-gray-600 mb-2">Gender:</label>
+      <span className="text-lg font-semibold">{patientData.Sex}</span>
     </div>
   </div>
+</div>
+
       <div className="mb-6">
         <br />
         <h2 className="text-xl font-semibold mb-4">Vitals</h2>

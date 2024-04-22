@@ -16,8 +16,8 @@ mongoose.connect(process.env.MONGO_URL)
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://65.0.8.212:3030'],
-  //origin: ['http://65.0.8.212:5173', 'http://65.0.8.212:3030'],
+  //origin: ['http://localhost:5173', 'http://65.0.8.212:3030'],
+  origin: ['http://65.0.8.212:5173', 'http://65.0.8.212:3030'],
   credentials: true // Enable credentials
 }));
 
@@ -61,8 +61,8 @@ app.get('/patients/:patientId', async (req, res) => {
 });
 
 
-// const port = 4269;
-// app.listen(port, '0.0.0.0',() => console.log(`Server is running on port ${port}`)) // for aws
+const port = 4269;
+app.listen(port, '0.0.0.0',() => console.log(`Server is running on port ${port}`)) // for aws
 
 //const port = 8000;
 //app.listen(port, () => console.log(`Server is running on port ${port}`)) // for testing on local

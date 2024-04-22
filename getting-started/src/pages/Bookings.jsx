@@ -4,14 +4,16 @@ import axios from 'axios';
 const Bookings = () => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [doctorInfo, setDoctorInfo] = useState(null);
 
   useEffect(() => {
     fetchAppointments();
+    fetchDoctorInfo();
   }, []);
 
   const fetchAppointments = async () => {
     try {
-      const response = await axios.get('http://65.0.8.212:4269/get_appointments');
+      const response = await axios.get('http://localhost:8000/get_appointments');
       setAppointments(response.data);
       setLoading(false);
     } catch (error) {
@@ -20,9 +22,26 @@ const Bookings = () => {
     }
   };
 
+  const fetchDoctorInfo = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/profile');
+      setDoctorInfo(response.data);
+    } catch (error) {
+      console.error('Error fetching doctor info:', error);
+    }
+  };
+
   return (
     <div className="container mx-auto px-4 py-4">
-      <h1 className="text-2xl font-semibold text-center">Upcoming Bookings</h1>
+      <div className="mb-4">
+        <h1 className="text-2xl font-semibold text-center">Upcoming Bookings</h1>
+        {doctorInfo && (
+          <div className="mt-2 text-center">
+            <p className="font-semibold">Doctor ID: {doctorInfo.id}</p>
+            <p className="font-semibold">Doctor Name: {doctorInfo.name}</p>
+          </div>
+        )}
+      </div>
       {loading ? (
         <p className="text-center mt-4">Loading...</p>
       ) : (
@@ -35,7 +54,6 @@ const Bookings = () => {
                 <li key={index} className="border-b border-gray-300 py-2">
                   <div className="flex justify-between">
                     <div>
-                      <p className="font-semibold">Doctor ID: {appointment.doctorId}</p>
                       <p className="font-semibold">Patient ID: {appointment.patientId}</p>
                       <p className="font-semibold">Time Slot: {new Date(appointment.timeSlot).toLocaleString()}</p>
                     </div>

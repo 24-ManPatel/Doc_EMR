@@ -64,5 +64,5 @@ app.get('/patients/:patientId', async (req, res) => {
 const port = 4269;
 app.listen(port, '0.0.0.0',() => console.log(`Server is running on port ${port}`)) // for aws
 
-// const port = 8000;
-// app.listen(port, () => console.log(`Server is running on port ${port}`)) // for testing on local
+//const port = 8000;
+//app.listen(port, () => console.log(`Server is running on port ${port}`)) // for testing on local

@@ -79,13 +79,18 @@ export default function NewVisit() {
   const addDiagnosisRow = () => {
     setDiagnoses([
       ...diagnoses,
-      { id: diagnoses.length + 1, diagnosis: '', duration: '', date: '' }
+      { id: diagnoses.length + 1, diagnosisName: '', duration: '', date: '' }
     ]);
-  };
+};
+
 
   const addComplaintRow = () => {
-    setComplaints([...complaints, { id: complaints.length + 1, complaint: '', frequency: '', severity: '', duration: '', date: '' }]);
-  };
+    setComplaints([
+      ...complaints,
+      { id: complaints.length + 1, complaintName: '', frequency: '', severity: '', duration: '', date: '' }
+    ]);
+};
+
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
@@ -171,9 +176,10 @@ export default function NewVisit() {
   const addMedicationRow = () => {
     setMedications([
       ...medications,
-      { id: medications.length + 1, medicine: '', dose: '', when: '', frequency: '', duration: '', notes: '' }
+      { id: medications.length + 1, medicineName: '', dose: '', when: '', frequency: '', duration: '', notes: '' }
     ]);
-  };
+};
+
 
   const handlePastRecordsClick = () => {
     navigate('/pastRecords'); // This will navigate to the '/pastRecords' route
@@ -260,7 +266,6 @@ export default function NewVisit() {
           </div>
         </div>
         <h2 className="text-xl font-semibold mb-4">Complaints</h2>
-        <form>
           <table className="min-w-full table-fixed bg-white rounded-md overflow-hidden">
             <thead className="bg-gray-200 text-gray-600">
               <tr>
@@ -345,7 +350,6 @@ export default function NewVisit() {
               Add Complaint
             </button>
           </div>
-        </form>
         <div className="mt-8">
           <h3 className="text-xl font-semibold mb-2">Diagnosis</h3>
           <table className="min-w-full table-fixed bg-white rounded-md overflow-hidden">

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors')
-const { test , registerUser , loginUser , getProfile, getAllDoctors, searchDoctors, bookAppointment, getAppointments} = require('../controllers/authController')
+const { test , registerUser , loginUser , getProfile, getAllDoctors, searchDoctors, bookAppointment, getAppointments , addNewVisit} = require('../controllers/authController')
 
 // middleware
 
@@ -22,5 +22,6 @@ router.get('/doctors', getAllDoctors);
 router.get('/doctors/search', searchDoctors);
 router.post('/appointment', bookAppointment);
 router.get('/get_appointments', getAppointments);
+router.post('/newVisit', addNewVisit);
 
 module.exports = router

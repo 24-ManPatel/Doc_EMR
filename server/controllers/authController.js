@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const Appointment = require('../models/Appointment');
+const Visit = require('../models/Visit');
 
 const { hashPassword , coPass} = require('../helpers/auth') 
 const jwt = require('jsonwebtoken');
@@ -159,6 +160,53 @@ const getAppointments = async (req, res) => {
 };
 
 
+
+// Endpoint handling for the Visits
+
+
+const addNewVisit = async (req, res) => {
+    try {
+      const {
+        patientId,
+        doctorId,
+        height,
+        weight,
+        pulse,
+        bp,
+        mmHg,
+        temperature,
+        complaints,
+        diagnosis,
+        medicine,
+        tests
+      } = req.body;
+  
+      // Creating a new visit record using the data from the request body
+      const newVisit = new Visit({
+        patientId,
+        doctorId,
+        height,
+        weight,
+        pulse,
+        bp,
+        mmHg,
+        temperature,
+        complaints,
+        diagnosis,
+        medicine,
+        tests
+      });
+  
+      await newVisit.save(); // Save the new visit to the database
+  
+      res.status(201).json({ message: "New visit record created successfully", visit: newVisit });
+    } catch (error) {
+      console.error("Error creating new visit record: ", error);
+      res.status(500).json({ error: "Failed to create new visit record" });
+    }
+  };
+
+
 module.exports = {
     test,
     registerUser,
@@ -168,4 +216,5 @@ module.exports = {
     searchDoctors,
     bookAppointment,
     getAppointments,
+    addNewVisit
 }

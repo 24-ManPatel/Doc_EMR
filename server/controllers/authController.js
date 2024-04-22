@@ -151,8 +151,23 @@ const bookAppointment = async (req, res) => {
 
 const getAppointments = async (req, res) => {
     try {
-        const appointments = await Appointment.find();
-        res.json(appointments);
+        const { token } = req.cookies;
+        if (!token) {
+            return res.status(401).json({ error: 'Unauthorized' });
+        }
+
+        jwt.verify(token, process.env.JWT_SECRET, {}, async (err, decoded) => {
+            if (err) {
+                return res.status(401).json({ error: 'Unauthorized' });
+            }
+
+            const { id: doctorId } = decoded;
+
+            // Fetch appointments for the logged-in doctor only
+            const appointments = await Appointment.find({ doctorId });
+
+            res.json(appointments);
+        });
     } catch (error) {
         console.error('Error fetching appointments:', error);
         res.status(500).json({ error: 'Internal server error' });

@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const visitSchema = new Schema({
+  appointmentId: String,
   patientId: String,
   doctorId: String,
   height: String,

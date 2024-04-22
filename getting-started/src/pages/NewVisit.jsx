@@ -8,6 +8,7 @@ const initialComplaints = [
   { id: 1, complaintName: '', frequency: '', severity: '', duration: '', date: '' }
 ];
 
+
 const initialMedications = [
   { id: 1, medicineName: '', dose: '', when: '', frequency: '', duration: '', notes: '' }
 ];
@@ -28,11 +29,21 @@ const TestDropdown = ({ options, onSelect }) => {
 };
 
 export default function NewVisit() {
+  const [appointmentId, setAppointmentId] = useState('');
   const [complaints, setComplaints] = useState(initialComplaints);
   const navigate = useNavigate();
   const location = useLocation(); // Hook to access location state
   const { patientData, doctorName, doctorId } = location.state || {}; // Extract patient data
 
+  useEffect(() => {
+    const generateAppointmentId = () => {
+      const id = Math.floor(Math.random() * 90000000) + 10000000; // Generates a number between 10000000 and 99999999
+      setAppointmentId(id.toString());
+    };
+  
+    generateAppointmentId();
+  }, []);
+  
   useEffect(() => {
     if (!patientData) {
       // Redirect to home if patient data is not available
@@ -97,6 +108,7 @@ export default function NewVisit() {
 
     try {
       const visitData = {
+        appointmentId,
         patientId: patientData.PatientId, // Make sure patientData is structured correctly
         doctorId: doctorId, // This should be dynamically set based on logged-in user
         height: document.getElementById('height').value + ' cm',
@@ -187,6 +199,9 @@ export default function NewVisit() {
 
   return (
     <div className="container mx-auto px-4 ref={dropdownRef}">
+      <div className="text-lg font-bold py-2">
+      Appointment ID: {appointmentId}
+    </div>
       <form onSubmit={handleSubmit}>
         <div className="flex justify-between mb-4">
           <button

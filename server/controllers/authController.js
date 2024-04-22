@@ -182,6 +182,7 @@ const getAppointments = async (req, res) => {
 const addNewVisit = async (req, res) => {
     try {
       const {
+        appointmentId,
         patientId,
         doctorId,
         height,
@@ -198,6 +199,7 @@ const addNewVisit = async (req, res) => {
   
       // Creating a new visit record using the data from the request body
       const newVisit = new Visit({
+        appointmentId,
         patientId,
         doctorId,
         height,

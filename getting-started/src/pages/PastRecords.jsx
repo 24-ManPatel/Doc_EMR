@@ -10,7 +10,8 @@ const PastRecords = () => {
   useEffect(() => {
     const fetchVisits = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/pastRecordsapi?patientId=${patientId}`);
+        const response = await axios.get(`http://65.0.8.212:4269/pastRecordsapi?patientId=${patientId}`);
+        //const response = await axios.get(`http://localhost:8000/pastRecordsapi?patientId=${patientId}`);
         setVisits(response.data);
       } catch (error) {
         console.error('Error fetching past visits:', error);

@@ -5,10 +5,12 @@ import axios from 'axios';
 
 
 const initialComplaints = [
-  { id: 1, complaint: '', frequency: '', severity: '', duration: '', date: '' }
+  { id: 1, complaintName: '', frequency: '', severity: '', duration: '', date: '' }
 ];
 
-
+const initialMedications = [
+  { id: 1, medicineName: '', dose: '', when: '', frequency: '', duration: '', notes: '' }
+];
 const TestDropdown = ({ options, onSelect }) => {
   return (
     <div className="absolute mt-1 z-10 w-2/3 bg-white rounded-md shadow-lg">
@@ -47,26 +49,33 @@ export default function NewVisit() {
   const [selectedTest, setSelectedTest] = useState('');
   const dropdownRef = useRef();
   const [diagnoses, setDiagnoses] = useState([
-    { id: 1, diagnosis: '', duration: '', date: '' }
+    { id: 1, diagnosisName: '', duration: '', date: '' }
   ]);
 
   const handleComplaintChange = (index, field, value) => {
     const newComplaints = complaints.map((complaint, i) => {
       if (i === index) {
-        return { ...complaint, [field]: value };
+        // Ensure the correct field key is used for complaint name
+        const key = field === 'complaint' ? 'complaintName' : field;
+        return { ...complaint, [key]: value };
       }
       return complaint;
     });
     setComplaints(newComplaints);
   };
+  
 
   const handleDiagnosisChange = (index, field, value) => {
-    const updatedDiagnoses = diagnoses.map((diagnosis, i) =>
-      i === index ? { ...diagnosis, [field]: value } : diagnosis
-    );
+    const updatedDiagnoses = diagnoses.map((diagnosis, i) => {
+      if (i === index) {
+        const key = field === 'diagnosis' ? 'diagnosisName' : field;
+        return { ...diagnosis, [key]: value };
+      }
+      return diagnosis;
+    });
     setDiagnoses(updatedDiagnoses);
   };
-
+  
   const addDiagnosisRow = () => {
     setDiagnoses([
       ...diagnoses,
@@ -84,14 +93,14 @@ export default function NewVisit() {
     try {
       const visitData = {
         patientId: patientData.patientId, // Make sure patientData is structured correctly
-        doctorId: 'your-doctor-id', // This should be dynamically set based on logged-in user
+        doctorId: doctorId, // This should be dynamically set based on logged-in user
         height: document.getElementById('height').value + ' cm',
         weight: document.getElementById('weight').value + ' kg',
         pulse: document.getElementById('pulse').value + ' bpm',
         bp: document.getElementById('bp-systolic').value,
         mmHg: document.getElementById('bp-diastolic').value,
-        temperature: document.getElementById('temperature').value + '°C',
-        complaints,
+        temperature: document.getElementById('temperature').value + '°F',
+        complaints ,
         diagnosis: diagnoses,
         medicine: medications,
         tests: [selectedTest] // Assuming selectedTest holds the last selected test or an array of tests
@@ -140,9 +149,7 @@ export default function NewVisit() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [dropdownRef]);
 
-  const initialMedications = [
-    { id: 1, medicine: '', dose: '', when: '', frequency: '', duration: '', notes: '' }
-  ];
+  
 
   const whenOptions = ['Morning', 'Noon', 'Evening', 'Night', 'Before Lunch', 'After Lunch'];
   const medicineOptions = ['NOVOMIX 30 IU', 'UDAPA 10MG', 'ISTAMET 50/1000', 'STAMLO 5MG']; // ...more meds
@@ -152,12 +159,14 @@ export default function NewVisit() {
   const handleMedicationChange = (index, field, value) => {
     const updatedMedications = medications.map((medication, i) => {
       if (i === index) {
-        return { ...medication, [field]: value };
+        const key = field === 'medicine' ? 'medicineName' : field;
+        return { ...medication, [key]: value };
       }
       return medication;
     });
     setMedications(updatedMedications);
   };
+  
 
   const addMedicationRow = () => {
     setMedications([
@@ -181,6 +190,14 @@ export default function NewVisit() {
             Past Patient Records
           </button>
           {/* ... other header elements ... */}
+          {/* Doctor details */}
+      
+        <h2 className="text-2xl font-bold mb-4">Doctor Details</h2>
+        <div className="flex flex-col">
+          <span className="text-lg font-semibold">Doctor Name: {doctorName}</span>
+          <span className="text-lg font-semibold">Doctor ID: {doctorId}</span>
+        </div>
+      
         </div>
         <div className="mb-6">
           {/* Patient Data Section */}

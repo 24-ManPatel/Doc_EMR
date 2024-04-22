@@ -37,6 +37,10 @@ export default function Login() {
         }
     };
 
+    const handleSignUp = () => {
+        navigate('/register'); // This should navigate to the registration page
+    };
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
             <div className="max-w-md w-full bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -58,7 +62,15 @@ export default function Login() {
                         <button type='submit' className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-bold rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                             Login
                         </button>
+                        
                     </div>
+                    <button
+                            type='button'
+                            onClick={handleSignUp}
+                            className="group relative w-full text-indigo-600 hover:text-indigo-700 font-semibold text-sm bg-white py-2 px-4 border border-transparent rounded-md focus:outline-none"
+                        >
+                            Don't have an account? Sign Up
+                        </button>
                 </form>
             </div>
         </div>

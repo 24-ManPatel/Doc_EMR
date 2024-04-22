@@ -207,7 +207,7 @@ export default function NewVisit() {
         </div>
       </div>
       <h2 className="text-xl font-semibold mb-4">Complaints</h2>
-      <form onSubmit={handleSubmit}>
+      <form>
         <table className="min-w-full table-fixed bg-white rounded-md overflow-hidden">
           <thead className="bg-gray-200 text-gray-600">
             <tr>
@@ -290,12 +290,6 @@ export default function NewVisit() {
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
             Add Complaint
-          </button>
-          <button
-            type="submit"
-            className="ml-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Save Details
           </button>
         </div>
       </form>

@@ -15,7 +15,8 @@ export default function Home() {
 
 const fetchDoctorProfile = async () => {
     try {
-        const response = await axios.get('http://65.0.8.212:4269/profile', { withCredentials: true });
+        //const response = await axios.get('http://localhost:8000/profile', { withCredentials: true });
+         const response = await axios.get('http://65.0.8.212:4269/profile', { withCredentials: true });
         setDoctor(response.data);
     } catch (error) {
         console.error('Error fetching doctor profile:', error);

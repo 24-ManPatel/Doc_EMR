@@ -92,7 +92,7 @@ export default function NewVisit() {
 
     try {
       const visitData = {
-        patientId: patientData.patientId, // Make sure patientData is structured correctly
+        patientId: patientData.PatientId, // Make sure patientData is structured correctly
         doctorId: doctorId, // This should be dynamically set based on logged-in user
         height: document.getElementById('height').value + ' cm',
         weight: document.getElementById('weight').value + ' kg',
@@ -214,6 +214,10 @@ export default function NewVisit() {
             <div className="flex flex-col">
               <label htmlFor="gender" className="text-gray-600 mb-2">Gender:</label>
               <span className="text-lg font-semibold">{patientData.Sex}</span>
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="gender" className="text-gray-600 mb-2">Patient ID:</label>
+              <span className="text-lg font-semibold">{patientData.PatientId}</span>
             </div>
           </div>
         </div>

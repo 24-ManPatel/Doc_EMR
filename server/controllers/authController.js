@@ -224,6 +224,25 @@ const addNewVisit = async (req, res) => {
   };
 
 
+  const getPastRecords = async (req, res) => {
+    try {
+        const { patientId } = req.query;
+
+        if (!patientId) {
+            return res.status(400).json({ error: 'Patient ID is required' });
+        }
+
+        // Fetch past visits for the given patient
+        const pastRecords = await Visit.find({ patientId });
+
+        res.json(pastRecords);
+    } catch (error) {
+        console.error('Error fetching past records:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+
 module.exports = {
     test,
     registerUser,
@@ -233,5 +252,6 @@ module.exports = {
     searchDoctors,
     bookAppointment,
     getAppointments,
-    addNewVisit
+    addNewVisit,
+    getPastRecords,
 }

@@ -16,7 +16,7 @@ import Welcome from './pages/Welcome';
 
 axios.defaults.baseURL = 'http://65.0.8.212:4269'; // server IP
 
-// axios.defaults.baseURL = 'http://localhost:8000'; //testing on local 
+//axios.defaults.baseURL = 'http://localhost:8000'; //testing on local 
 
 axios.defaults.withCredentials = true
 function App() {

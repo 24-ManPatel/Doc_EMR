@@ -27,7 +27,7 @@ export default function NewVisit() {
   const [complaints, setComplaints] = useState(initialComplaints);
   const navigate = useNavigate();
   const location = useLocation(); // Hook to access location state
-  const patientData = location.state ? location.state.patientData : null; // Extract patient data
+  const { patientData, doctorName, doctorId } = location.state || {}; // Extract patient data
 
   useEffect(() => {
     if (!patientData) {
@@ -150,6 +150,15 @@ export default function NewVisit() {
         </button>
         {/* ... other header elements ... */}
       </div>
+      {/* Doctor details */}
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold mb-4">Doctor Details</h2>
+        <div className="flex flex-col">
+          <span className="text-lg font-semibold">Doctor Name: {doctorName}</span>
+          <span className="text-lg font-semibold">Doctor ID: {doctorId}</span>
+        </div>
+      </div>
+
       <div className="mb-6">
   {/* Patient Data Section */}
   <h2 className="text-2xl font-bold mb-4">Patient Data</h2>

@@ -1,12 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Home() {
   const navigate = useNavigate();
+  const [doctor, setDoctor] = useState(null);
   const [patientId, setPatientId] = useState('');
   const [isLoading, setIsLoading] = useState(false); // State to manage loading status
+
+  useEffect(() => {
+    fetchDoctorProfile();
+}, []);
+
+const fetchDoctorProfile = async () => {
+    try {
+        const response = await axios.get('http://65.0.8.212:4269/profile', { withCredentials: true });
+        setDoctor(response.data);
+    } catch (error) {
+        console.error('Error fetching doctor profile:', error);
+    }
+};
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -23,7 +37,12 @@ export default function Home() {
       const patientData = response.data;
       console.log(patientData)
       try {
-        navigate('/newVisit', { state: { patientData } });
+        navigate('/newVisit', { state: {
+           patientData, 
+           doctorName: doctor.name, // Pass doctor name
+           doctorId: doctor.id,
+          } 
+        });
       } catch (error) {
         console.error('navigate ka locha mara :', error);
         toast.error('page problem hai bhai.');
@@ -43,6 +62,12 @@ export default function Home() {
         <p className="text-lg mb-6 text-center text-gray-700">Manage electronic medical records efficiently.</p>
 
         <div className="border p-6 rounded-lg">
+        {doctor && (
+                        <div className="text-center mb-4">
+                            <p className="text-lg font-semibold">Welcome, DR. {doctor.name}</p>
+                            <p className="text-sm text-gray-600">Doctor ID: {doctor.id}</p>
+                        </div>
+                    )}
           <h2 className="text-xl font-semibold mb-6 text-center text-gray-900">Search Patient Record by ID</h2>
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div>

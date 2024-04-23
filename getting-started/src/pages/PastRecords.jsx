@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const PastRecords = () => {
   const [visits, setVisits] = useState([]);
   const location = useLocation();
   const patientId = new URLSearchParams(location.search).get('patientId');
-
+  const navigate = useNavigate();
+  
   useEffect(() => {
     const fetchVisits = async () => {
       try {
@@ -21,8 +23,35 @@ const PastRecords = () => {
     fetchVisits();
   }, [patientId]);
 
+  const handleLogout = () => {
+    navigate('/login');
+  };
+
+  const handleHome = () => {
+    navigate('/home');
+  }
+  const handleBookings = () => {
+    navigate('/bookings');
+  }
+
   return (
-    <div className="container mx-auto px-4 py-4">
+    <div className="mx-auto px-4 py-4">
+      <nav className="bg-indigo-600 p-4">
+        <div className="container mx-auto flex justify-between items-center">
+          <h1 className="text-white text-lg font-semibold">EMR Manager</h1>
+          <div className="flex space-x-4">
+            <button onClick={() => handleNavigate('/home')} className="text-white hover:text-gray-300 font-semibold">
+              Search Patient
+            </button>
+            <button onClick={handleBookings} className="text-white hover:text-gray-300 font-semibold">
+              Bookings
+            </button>
+            <button onClick={handleLogout} className="text-white hover:text-gray-300 font-semibold">
+              Log Out
+            </button>
+          </div>
+        </div>
+      </nav>
       <h1 className="text-2xl font-semibold text-center">Past Patient Records</h1>
       {visits.map((visit, index) => (
         <div key={index} className="mb-8">

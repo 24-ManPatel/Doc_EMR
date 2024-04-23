@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
 
-
 const initialComplaints = [
   { id: 1, complaintName: '', frequency: '', severity: '', duration: '', date: '' }
 ];
@@ -14,6 +13,7 @@ const initialMedications = [
 ];
 const TestDropdown = ({ options, onSelect }) => {
   return (
+
     <div className="absolute mt-1 z-10 w-2/3 bg-white rounded-md shadow-lg">
       {options.map((option, idx) => (
         <div
@@ -40,10 +40,10 @@ export default function NewVisit() {
       const id = Math.floor(Math.random() * 90000000) + 10000000; // Generates a number between 10000000 and 99999999
       setAppointmentId(id.toString());
     };
-  
+
     generateAppointmentId();
   }, []);
-  
+
   useEffect(() => {
     if (!patientData) {
       // Redirect to home if patient data is not available
@@ -74,7 +74,7 @@ export default function NewVisit() {
     });
     setComplaints(newComplaints);
   };
-  
+
 
   const handleDiagnosisChange = (index, field, value) => {
     const updatedDiagnoses = diagnoses.map((diagnosis, i) => {
@@ -86,13 +86,13 @@ export default function NewVisit() {
     });
     setDiagnoses(updatedDiagnoses);
   };
-  
+
   const addDiagnosisRow = () => {
     setDiagnoses([
       ...diagnoses,
       { id: diagnoses.length + 1, diagnosisName: '', duration: '', date: '' }
     ]);
-};
+  };
 
 
   const addComplaintRow = () => {
@@ -100,7 +100,7 @@ export default function NewVisit() {
       ...complaints,
       { id: complaints.length + 1, complaintName: '', frequency: '', severity: '', duration: '', date: '' }
     ]);
-};
+  };
 
 
   const handleSubmit = async (e) => {
@@ -117,7 +117,7 @@ export default function NewVisit() {
         bp: document.getElementById('bp-systolic').value,
         mmHg: document.getElementById('bp-diastolic').value,
         temperature: document.getElementById('temperature').value + '°F',
-        complaints ,
+        complaints,
         diagnosis: diagnoses,
         medicine: medications,
         tests: [selectedTest] // Assuming selectedTest holds the last selected test or an array of tests
@@ -166,7 +166,7 @@ export default function NewVisit() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [dropdownRef]);
 
-  
+
 
   const whenOptions = ['Morning', 'Noon', 'Evening', 'Night', 'Before Lunch', 'After Lunch'];
   const medicineOptions = ['NOVOMIX 30 IU', 'UDAPA 10MG', 'ISTAMET 50/1000', 'STAMLO 5MG']; // ...more meds
@@ -183,25 +183,53 @@ export default function NewVisit() {
     });
     setMedications(updatedMedications);
   };
-  
+
 
   const addMedicationRow = () => {
     setMedications([
       ...medications,
       { id: medications.length + 1, medicineName: '', dose: '', when: '', frequency: '', duration: '', notes: '' }
     ]);
-};
+  };
 
 
   const handlePastRecordsClick = () => {
     navigate('/pastRecords'); // This will navigate to the '/pastRecords' route
   };
 
+
+  const handleLogout = () => {
+    navigate('/login');
+  };
+
+  const handleHome = () => {
+    navigate('/home');
+  }
+  const handleBookings = () => {
+    navigate('/bookings');
+  }
+
   return (
-    <div className="container mx-auto px-4 ref={dropdownRef}">
+    <div className="mx-auto px-4 ref={dropdownRef}">
+      <nav className="bg-indigo-600 p-4 w-full">
+        <div className="container mx-auto flex justify-between items-center">
+          <h1 className="text-white text-lg font-semibold">EMR Manager</h1>
+          <div className="flex items-center space-x-4">
+            <button onClick={handleHome} className="text-white hover:text-gray-300 font-semibold">
+              Search Patient
+            </button>
+            <button onClick={handleBookings} className="text-white hover:text-gray-300 font-semibold">
+              Bookings
+            </button>
+            <button onClick={handleLogout} className="text-white hover:text-gray-300 font-semibold">
+              Log Out
+            </button>
+          </div>
+        </div>
+      </nav>
       <div className="text-lg font-bold py-2">
-      Appointment ID: {appointmentId}
-    </div>
+        Appointment ID: {appointmentId}
+      </div>
       <form onSubmit={handleSubmit}>
         <div className="flex justify-between mb-4">
           <button
@@ -212,13 +240,13 @@ export default function NewVisit() {
           </button>
           {/* ... other header elements ... */}
           {/* Doctor details */}
-      
-        <h2 className="text-2xl font-bold mb-4">Doctor Details</h2>
-        <div className="flex flex-col">
-          <span className="text-lg font-semibold">Doctor Name: {doctorName}</span>
-          <span className="text-lg font-semibold">Doctor ID: {doctorId}</span>
-        </div>
-      
+
+          <h2 className="text-2xl font-bold mb-4">Doctor Details</h2>
+          <div className="flex flex-col">
+            <span className="text-lg font-semibold">Doctor Name: {doctorName}</span>
+            <span className="text-lg font-semibold">Doctor ID: {doctorId}</span>
+          </div>
+
         </div>
         <div className="mb-6">
           {/* Patient Data Section */}
@@ -281,90 +309,90 @@ export default function NewVisit() {
           </div>
         </div>
         <h2 className="text-xl font-semibold mb-4">Complaints</h2>
-          <table className="min-w-full table-fixed bg-white rounded-md overflow-hidden">
-            <thead className="bg-gray-200 text-gray-600">
-              <tr>
-                <th className="w-12 px-4 py-2">#</th>
-                <th className="px-4 py-2">Complaints</th>
-                <th className="px-4 py-2">Frequency</th>
-                <th className="px-4 py-2">Severity</th>
-                <th className="px-4 py-2">Duration</th>
-                <th className="px-4 py-2">Date</th>
+        <table className="min-w-full table-fixed bg-white rounded-md overflow-hidden">
+          <thead className="bg-gray-200 text-gray-600">
+            <tr>
+              <th className="w-12 px-4 py-2">#</th>
+              <th className="px-4 py-2">Complaints</th>
+              <th className="px-4 py-2">Frequency</th>
+              <th className="px-4 py-2">Severity</th>
+              <th className="px-4 py-2">Duration</th>
+              <th className="px-4 py-2">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {complaints.map((complaint, index) => (
+              <tr key={complaint.id} className="text-center border-b">
+                <td className="border px-4 py-2">{complaint.id}</td>
+                <td className="border px-4 py-2">
+                  <select
+                    className="w-full px-3 py-2 outline-none border-0"
+                    value={complaint.complaint}
+                    onChange={(e) => handleComplaintChange(index, 'complaint', e.target.value)}
+                  >
+                    <option value="">Select Complaint</option>
+                    <option value="fever">Fever</option>
+                    <option value="cough">Cough</option>
+                    {/* Add more options here */}
+                  </select>
+                </td>
+                <td className="border px-4 py-2">
+                  <select
+                    className="w-full px-3 py-2 outline-none border-0"
+                    value={complaint.frequency}
+                    onChange={(e) => handleComplaintChange(index, 'frequency', e.target.value)}
+                  >
+                    <option value="">Select Frequency</option>
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    {/* Add more options here */}
+                  </select>
+                </td>
+                <td className="border px-4 py-2">
+                  <select
+                    className="w-full px-3 py-2 outline-none border-0"
+                    value={complaint.severity}
+                    onChange={(e) => handleComplaintChange(index, 'severity', e.target.value)}
+                  >
+                    <option value="">Select Severity</option>
+                    <option value="mild">Mild</option>
+                    <option value="moderate">Moderate</option>
+                    {/* Add more options here */}
+                  </select>
+                </td>
+                <td className="border px-4 py-2">
+                  <select
+                    className="w-full px-3 py-2 outline-none border-0"
+                    value={complaint.duration}
+                    onChange={(e) => handleComplaintChange(index, 'duration', e.target.value)}
+                  >
+                    <option value="">Select Duration</option>
+                    <option value="1_day">1 Day</option>
+                    <option value="1_week">1 Week</option>
+                    {/* Add more options here */}
+                  </select>
+                </td>
+                <td className="border px-4 py-2">
+                  <input
+                    type="date"
+                    className="w-full px-3 py-2 outline-none border-0"
+                    value={complaint.date}
+                    onChange={(e) => handleComplaintChange(index, 'date', e.target.value)}
+                  />
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {complaints.map((complaint, index) => (
-                <tr key={complaint.id} className="text-center border-b">
-                  <td className="border px-4 py-2">{complaint.id}</td>
-                  <td className="border px-4 py-2">
-                    <select
-                      className="w-full px-3 py-2 outline-none border-0"
-                      value={complaint.complaint}
-                      onChange={(e) => handleComplaintChange(index, 'complaint', e.target.value)}
-                    >
-                      <option value="">Select Complaint</option>
-                      <option value="fever">Fever</option>
-                      <option value="cough">Cough</option>
-                      {/* Add more options here */}
-                    </select>
-                  </td>
-                  <td className="border px-4 py-2">
-                    <select
-                      className="w-full px-3 py-2 outline-none border-0"
-                      value={complaint.frequency}
-                      onChange={(e) => handleComplaintChange(index, 'frequency', e.target.value)}
-                    >
-                      <option value="">Select Frequency</option>
-                      <option value="daily">Daily</option>
-                      <option value="weekly">Weekly</option>
-                      {/* Add more options here */}
-                    </select>
-                  </td>
-                  <td className="border px-4 py-2">
-                    <select
-                      className="w-full px-3 py-2 outline-none border-0"
-                      value={complaint.severity}
-                      onChange={(e) => handleComplaintChange(index, 'severity', e.target.value)}
-                    >
-                      <option value="">Select Severity</option>
-                      <option value="mild">Mild</option>
-                      <option value="moderate">Moderate</option>
-                      {/* Add more options here */}
-                    </select>
-                  </td>
-                  <td className="border px-4 py-2">
-                    <select
-                      className="w-full px-3 py-2 outline-none border-0"
-                      value={complaint.duration}
-                      onChange={(e) => handleComplaintChange(index, 'duration', e.target.value)}
-                    >
-                      <option value="">Select Duration</option>
-                      <option value="1_day">1 Day</option>
-                      <option value="1_week">1 Week</option>
-                      {/* Add more options here */}
-                    </select>
-                  </td>
-                  <td className="border px-4 py-2">
-                    <input
-                      type="date"
-                      className="w-full px-3 py-2 outline-none border-0"
-                      value={complaint.date}
-                      onChange={(e) => handleComplaintChange(index, 'date', e.target.value)}
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <div className="mt-4 flex justify-end">
-            <button
-              type="button"
-              onClick={addComplaintRow}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Add Complaint
-            </button>
-          </div>
+            ))}
+          </tbody>
+        </table>
+        <div className="mt-4 flex justify-end">
+          <button
+            type="button"
+            onClick={addComplaintRow}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Add Complaint
+          </button>
+        </div>
         <div className="mt-8">
           <h3 className="text-xl font-semibold mb-2">Diagnosis</h3>
           <table className="min-w-full table-fixed bg-white rounded-md overflow-hidden">
@@ -512,7 +540,7 @@ export default function NewVisit() {
         </table>
         <div className="flex justify-end mt-4">
           <button
-          type='button'
+            type='button'
             onClick={addMedicationRow}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >

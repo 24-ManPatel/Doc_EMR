@@ -78,155 +78,143 @@ export default function Register() {
         }
     };
 
+    const handleExit = () => {
+        navigate('/');
+    };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
-            <div className="max-w-md w-full bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-6">
-                <h1 className="text-center text-2xl font-bold text-gray-900 mb-6">Register Your Account</h1>
-                <form onSubmit={registerUser} className="space-y-6">
+        <div className="flex flex-col min-h-screen bg-gray-100">
+            <nav className="bg-indigo-600 p-4">
+                <div className="container mx-auto flex justify-between items-center">
+                    <div className="text-white text-lg font-semibold">EMR Management</div>
                     <div>
+                        <button onClick={handleSignIn} className="text-white hover:text-gray-300 font-semibold mr-4">
+                            Sign In
+                        </button>
+                        <button onClick={handleExit} className="text-white hover:text-gray-300 font-semibold">
+                            Exit
+                        </button>
+                    </div>
+                </div>
+            </nav>
+            <div className="flex-grow flex items-center justify-center p-6">
+                <div className="max-w-md w-full bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                    <h1 className="text-center text-2xl font-bold text-gray-900 mb-6">Register Your Account</h1>
+                    <form onSubmit={registerUser} className="space-y-6">
                         <input
                             type="text"
                             name="name"
+                            placeholder="Name"
                             required
                             value={data.name}
                             onChange={handleChange}
-                            placeholder="Name"
-                            className={`appearance-none rounded-none relative block w-full px-3 py-2 border ${errors.name ? 'border-red-500' : 'border-gray-300'
-                                } placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm`}
+                            className="w-full p-2 border border-gray-300 rounded-md"
                         />
-                        {errors.name && <p className="text-red-500 text-xs italic">{errors.name}</p>}
-                    </div>
-                    <div>
-                        <label htmlFor="contactNumber" className="sr-only">Contact Number</label>
-                        <input id="contactNumber" name="contactNumber" type="number" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Contact Number" onChange={handleChange} value={data.contactNumber} />
-                    </div>
-                    <div>
-                        <label htmlFor="email" className="sr-only">email</label>
-                        <input id="email" name="email" type="text" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="E-mail" onChange={handleChange} value={data.email} />
-                    </div>
-                    <div>
-                        <label htmlFor="doctorType" className="block text-sm font-medium text-gray-700">Type of Doctor</label>
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Email"
+                            required
+                            value={data.email}
+                            onChange={handleChange}
+                            className="w-full p-2 border border-gray-300 rounded-md"
+                        />
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            required
+                            value={data.password}
+                            onChange={handleChange}
+                            className="w-full p-2 border border-gray-300 rounded-md"
+                        />
+                        <input
+                            type="text"
+                            name="contactNumber"
+                            placeholder="Contact Number"
+                            required
+                            value={data.contactNumber}
+                            onChange={handleChange}
+                            className="w-full p-2 border border-gray-300 rounded-md"
+                        />
+                        <textarea
+                            name="clinicAddress"
+                            placeholder="Clinic Address"
+                            required
+                            value={data.clinicAddress}
+                            onChange={handleChange}
+                            className="w-full p-2 border border-gray-300 rounded-md"
+                        />
                         <select
-                            id="doctorType"
                             name="doctorType"
                             required
-                            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-                            onChange={handleChange}
                             value={data.doctorType}
+                            onChange={handleChange}
+                            className="w-full p-2 border border-gray-300 rounded-md"
                         >
-                            <option value="" disabled={!data.doctorType}>Select your specialty</option>
+                            <option value="">Select your specialty</option>
                             <option value="cardiologist">Cardiologist</option>
                             <option value="dermatologist">Dermatologist</option>
                             <option value="neurologist">Neurologist</option>
                             <option value="orthopedist">Orthopedist</option>
                             <option value="pediatrician">Pediatrician</option>
                             <option value="surgeon">Surgeon</option>
-                            {/* Add more options as per your requirements */}
+                            {/* More options can be added here */}
                         </select>
-                    </div>
-
-                    <div>
                         <input
-                            id="city"
+                            type="text"
                             name="city"
-                            type="text"
-                            required
-                            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                             placeholder="City"
-                            onChange={handleChange}
+                            required
                             value={data.city}
+                            onChange={handleChange}
+                            className="w-full p-2 border border-gray-300 rounded-md"
                         />
-                    </div>
-
-                    <div>
                         <input
-                            id="state"
+                            type="text"
                             name="state"
-                            type="text"
-                            required
-                            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                             placeholder="State"
-                            onChange={handleChange}
+                            required
                             value={data.state}
+                            onChange={handleChange}
+                            className="w-full p-2 border border-gray-300 rounded-md"
                         />
-                    </div>
-
-                    <div>
                         <input
-                            id="country"
+                            type="text"
                             name="country"
-                            type="text"
-                            required
-                            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                             placeholder="Country"
-                            onChange={handleChange}
-                            value={data.country}
-                        />
-                    </div>
-
-                    <div>
-                        <input
-                            id="clinicAddress"
-                            name="clinicAddress"
-                            type="text"
                             required
-                            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                            placeholder="Clinic Address"
+                            value={data.country}
                             onChange={handleChange}
-                            value={data.clinicAddress}
+                            className="w-full p-2 border border-gray-300 rounded-md"
                         />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">Password</label>
-                        <input type="password" placeholder='Enter Password ...' value={data.password} onChange={(e) => setData({ ...data, password: e.target.value })}
-                            className={`appearance-none rounded-none relative block w-full px-3 py-2 border ${errors.password ? 'border-red-500' : 'border-gray-300'
-                                } placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm`}
-                        />
-                        {errors.password && <p className="text-red-500 text-xs italic">{errors.password}</p>}
-                    </div>
-
-                    <div>
                         <input
-                            id="experience"
-                            name="experience"
                             type="number"
+                            name="experience"
+                            placeholder="Experience in years"
                             min="0"
                             required
-                            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                            placeholder="Experience in years"
-                            onChange={handleChange}
                             value={data.experience}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="doctorId" className="block text-sm font-medium text-gray-700">Your Doctor Id</label>
-                        <input
-                            id="doctorId"
-                            name="doctorId"
-                            type="text"
-                            readOnly
-                            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none sm:text-sm"
-                            placeholder="Doctor ID"
                             onChange={handleChange}
-                            value={data.doctorId}
+                            className="w-full p-2 border border-gray-300 rounded-md"
                         />
-                    </div>
-                    <div>
-                        <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <button
+                            type="submit"
+                            className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700"
+                        >
                             Complete Profile Setup
                         </button>
-
-
-                    </div>
-                </form>
-                <button className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-indigo-600 font-semibold bg-white p-3 focus:outline-none"
-                    onClick={handleSignIn}
-                >
-                    Already have an Accout? Sign in
-                </button>
+                    </form>
+                    <button
+                        onClick={handleSignIn}
+                        className="w-full text-indigo-600 py-2 px-4 border border-indigo-600 rounded-md hover:bg-indigo-600 hover:text-white mt-4"
+                    >
+                        Already have an account? Sign in
+                    </button>
+                </div>
             </div>
         </div>
     );
+    
 }
 

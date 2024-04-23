@@ -194,7 +194,7 @@ export default function NewVisit() {
 
 
   const handlePastRecordsClick = () => {
-    navigate('/pastRecords'); // This will navigate to the '/pastRecords' route
+    navigate(`/pastRecords?patientId=${patientData.PatientId}`); // Navigating to pastRecords with patientId as query parameter
   };
 
 
